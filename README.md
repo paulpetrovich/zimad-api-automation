@@ -20,6 +20,6 @@ Negative case => sync item already proccesed
 
 
 Note: going forward deep into the weeds of "create a new task" call one may want to add more tests after figuring out more details on app components intergration and dependencies (shared users, labels which is a premium feature etc). The list above is a critical path tests that cover:
-- Ability to create a task on a different levels and projects
+- Ability to create a task on different hierarchical levels
 - Access/permissions issues related to that specific API call
 - Negative cases showing how bad requests, out-of-range and other functionals requirements to the method are handleded
