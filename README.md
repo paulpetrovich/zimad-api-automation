@@ -2,7 +2,9 @@ Precondition for all the following tests:
 User is logged in.
 
 
-The following checklist below is designed to validate *Create a new task API call*:
+
+The following checklist below is designed to validate **Create a new task API call**:
+
 
 - validate a task creation (happy path) to a default project (inbox)
 - validate a task creation in a specified project (other than default)
@@ -17,6 +19,7 @@ Negative case => sync item already proccesed
 - validate create task call where String is used instead of Integer value in "order" field. That checks "bad request" implementation for the method.
 - validate if due_string and due_date can be used at a time 
 => Only one of due_string, due_date or due_datetime can be set 
+
 
 
 Note: going forward deep into the weeds of "create a new task" call one may want to add more tests after figuring out more details on app components intergration and dependencies (shared users, labels which is a premium feature etc). The list above is a critical path tests that cover:
