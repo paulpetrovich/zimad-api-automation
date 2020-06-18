@@ -19,6 +19,8 @@ Negative case => sync item already proccesed
 - validate create task call where String is used instead of Integer value in "order" field. That checks "bad request" implementation for the method.
 - validate if due_string and due_date can be used at a time 
 => Only one of due_string, due_date or due_datetime can be set 
+- validate if due_string has incorrect time in the string (ex."tomorrow at 40:00")
+=> "Date in invalid" in the response
 
 
 
