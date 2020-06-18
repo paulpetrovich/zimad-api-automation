@@ -22,7 +22,6 @@ public class PropertiesReader {
         }
 
         {
-
             prop = new Properties();
             // load a properties file
             try {

@@ -19,7 +19,7 @@ public class RequestManager {
         this.setBaseUri(this.baseUri);
     }
 
-    public void setBaseUri(String newBaseUri) {
+    private void setBaseUri(String newBaseUri) {
 
         RestAssured.baseURI = newBaseUri;
 
@@ -30,7 +30,7 @@ public class RequestManager {
         newBaseUri = baseUri + endPoint;
     }
 
-    public String getEndPoint() {
+    private String getEndPoint() {
         return newBaseUri;
     }
 
