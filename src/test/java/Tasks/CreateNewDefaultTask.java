@@ -19,26 +19,45 @@ public class CreateNewDefaultTask {
 
 
     @Test
-    public void TaskCreatedSuccessfully() {
+    public void TaskCreatedSuccessfully() throws Exception {
 
         RequestManager requestManager = new RequestManager();
         requestManager.setEndPoint(EndPoints.tasks);
         response = requestManager.createTask();
-        Assert.assertTrue(response.statusCode() == 200);
-        Assert.assertTrue(response.jsonPath().get("url")!=null);
+        if (response.statusCode() == 200) {
+            Assert.assertTrue(response.jsonPath().get("url") != null);
+        } else {
+            throw new Exception("Task creation failed!" + "\n" + Exception.class.getName());
+        }
 
 
     }
 
     @Test
-    public void TaskNotCreatedWithIncorrectDueDate() {
+    public void TaskNotCreatedWithIncorrectDueDate() throws Exception {
 
         RequestManager requestManager = new RequestManager();
         requestManager.setEndPoint(EndPoints.tasks);
         response = requestManager.createTask("tomorrow at 40:00");
-        Assert.assertTrue(response.statusCode() != 200);
-        Assert.assertEquals(response.getBody().asString().trim(),"Date is invalid");
+        if (response.statusCode() != 200) {
+            Assert.assertEquals(response.getBody().asString().trim(), "Date is invalid");
+        } else {
+            throw new Exception("Response is incorrect! Invalid date was accepted" + "\n" + Exception.class.getName());
+        }
 
+    }
+
+    @Test
+    public void TaskNotCreatedWithExistingUUID() throws Exception {
+
+        RequestManager requestManager = new RequestManager();
+        requestManager.setEndPoint(EndPoints.tasks);
+        response = requestManager.createTaskWithExistingUUID();
+        if (response.statusCode() != 200) {
+            Assert.assertEquals(response.getBody().asString().trim(), "Sync item already processed. Ignored");
+        } else {
+            throw new Exception("Response is incorrect! Duplicate UUID was allowed" + "\n" + Exception.class.getName());
+        }
     }
 
     @AfterSuite

@@ -5,6 +5,8 @@ import Objects.DefaultTask;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 
+import java.util.UUID;
+
 public class RequestManager {
 
     private DefaultTask task;
@@ -34,13 +36,28 @@ public class RequestManager {
 
     public Response createTask() {
 
-        task = new DefaultTask(getEndPoint());
-        return  task.buildTaskJSON();
+        return createDefaultTaskWithParamsAndSendPost();
     }
 
     public Response createTask(String taskParam) {
 
-        task = new DefaultTask(getEndPoint(),taskParam);
-        return  task.buildTaskJSON();
+        task = new DefaultTask(getEndPoint(), taskParam);
+        return task.buildTaskJSON();
     }
+
+    public Response createTaskWithExistingUUID() {
+        createDefaultTaskWithParamsAndSendPost();
+        return getUUIDAndUseForTask();
+    }
+
+    private Response getUUIDAndUseForTask() {
+        UUID newUUID = task.uuid.getUuid();
+        return task.buildTaskJSON(newUUID);
+    }
+
+    private Response createDefaultTaskWithParamsAndSendPost() {
+        task = new DefaultTask(getEndPoint());
+        return task.buildTaskJSON();
+    }
+
 }

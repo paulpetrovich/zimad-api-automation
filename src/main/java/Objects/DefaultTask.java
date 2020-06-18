@@ -6,12 +6,14 @@ import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.json.simple.JSONObject;
 
+import java.util.UUID;
+
 import static io.restassured.RestAssured.given;
 
 public class DefaultTask {
 
     private PropertiesReader prop = new PropertiesReader();
-    private UUIDGenerator uuid = new UUIDGenerator();
+    public UUIDGenerator uuid = new UUIDGenerator();
 
     private String content = "content";
     private String due_string = "due_string";
@@ -54,6 +56,19 @@ public class DefaultTask {
                         contentType(ContentType.JSON).
                         header("Authorization", "Bearer" + " " + prop.readProperties().getProperty("authorizationBearer")).
                         header("X-Request-Id", uuid.getUuid()).
+                        body(jsonBody.toJSONString()).
+                        post(endPoint);
+
+        return response;
+    }
+
+    public Response buildTaskJSON(UUID uuid) {
+
+        response =
+                given().
+                        contentType(ContentType.JSON).
+                        header("Authorization", "Bearer" + " " + prop.readProperties().getProperty("authorizationBearer")).
+                        header("X-Request-Id", uuid).
                         body(jsonBody.toJSONString()).
                         post(endPoint);
 

@@ -1,6 +1,6 @@
 package Utils;
 
-public abstract  class Task {
+public abstract class Task {
 
     //static test data used for task creation with default params
     public static final String content = "Appointment with Kelly";
